@@ -6,7 +6,8 @@ var CommentSchema = new Schema(
     {
         comment: { type: String, required: true },
         date: { type: Date, default: Date.now},
-        username: { type: String, required: true }
+        username: { type: String, required: true },
+        blogId: { type: String, required: true },
     }
 );
 

@@ -16,6 +16,6 @@ router.put('/:id/edit', verifyToken, commentController.edit_comment);
 router.delete(':id/delete', verifyToken, commentController.delete_comment);
 
 // GET one comment.
-router.get('/:id', commentController.get_comment);
+router.get('/:id', commentController.one_comment);
 
 module.exports = router;

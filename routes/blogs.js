@@ -1,5 +1,5 @@
 const express = require('express');
-const router = exprexx.Router();
+const router = express.Router();
 const blogController = require('../controllers/blogController');
 const verifyToken = require('../config/verifyToken');
 
@@ -19,9 +19,9 @@ router.post('/:id/publish', verifyToken, blogController.publish);
 router.post('/:id/unpublish', verifyToken, blogController.unpublish);
 
 //  PUT edit blog.
-router.put('/:id/edit', verifyToken, blogController.edit);
+router.put('/:id/edit', verifyToken, blogController.edit_blog);
 
 // DELETE blog.
-router.delete('/:id/delete', verifyToken, blogController.delete);
+router.delete('/:id/delete', verifyToken, blogController.delete_blog);
 
 module.exports = router;
