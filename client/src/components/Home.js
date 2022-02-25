@@ -1,9 +1,24 @@
-import './App.css';
+
+
 
 
 function Home() {
-  return (
-    <h1>Hello from Home</h1>
+
+
+    return (
+        <main>
+            
+        <section>
+            <div>
+                <h1>Hello from Bloggy Home</h1>
+                <p>Some descriptive text explaining what Bloggy is.</p>
+            </div>
+        </section>
+            <h4>Blogs</h4>
+        
+      </main>
+    
+    
   );
 }
 

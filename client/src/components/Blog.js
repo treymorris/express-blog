@@ -1,9 +1,12 @@
-import './App.css';
+import '../App.css';
 
 
 function Blog() {
-  return (
-    <h1>Hello from Blog</h1>
+    return (
+        <div>
+            <h1>Hello from Blog</h1>
+      </div>
+    
   );
 }
 

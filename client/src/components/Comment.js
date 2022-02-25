@@ -2,8 +2,11 @@ import './App.css';
 
 
 function Comment() {
-  return (
-    <h1>Hello from Comment</h1>
+    return (
+      <div>
+            <h1>Hello from Comment</h1>
+      </div>
+    
   );
 }
 

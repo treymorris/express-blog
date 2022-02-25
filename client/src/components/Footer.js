@@ -1,9 +1,12 @@
-import './App.css';
+import '../App.css';
 
 
 function Footer() {
-  return (
-    <h1>Hello from Footer</h1>
+    return (
+      <div>
+            <h1>Hello from Footer</h1>
+      </div>
+    
   );
 }
 

@@ -1,4 +1,4 @@
-import { withRouter, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -18,8 +18,8 @@ function Navbar(props) {
               <NavLink to='/create' >Create Blog</NavLink>
               <NavLink to='/' hidden={props.user ? true : false} onClick={logout} >Logout</NavLink>
           </div>
-    </nav>
+     </nav>
   );
 }
 
-export default withRouter(Navbar);
+export default Navbar;
