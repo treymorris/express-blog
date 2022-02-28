@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var PostSchema = new Schema(
+var BlogSchema = new Schema(
     {
         title: { type: String, required: true },
         blog: { type: String, required: true },
@@ -12,4 +12,4 @@ var PostSchema = new Schema(
     }
 );
 
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Blog', BlogSchema);

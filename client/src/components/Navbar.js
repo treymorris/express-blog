@@ -11,14 +11,16 @@ function Navbar(props) {
 
 
   return (
-      <nav>
-          <div>
-              <NavLink to='/' >Bloggy</NavLink>
-              <NavLink to='/login' hidden={props.user ? true : false} >Login</NavLink>
-              <NavLink to='/create' >Create Blog</NavLink>
-              <NavLink to='/' hidden={props.user ? true : false} onClick={logout} >Logout</NavLink>
+      <nav className='navbar justify-content-center mt-3 mb-5'>
+          <div className='container-fluid'>
+              <NavLink className='p-3' to='/' >Bloggy</NavLink>
+                <div className='nav justify-content-end'>
+                    <NavLink className='p-3' to='/login' hidden={props.user ? true : false} >Login</NavLink>
+                    <NavLink className='p-3' to='/create' >Create Blog</NavLink>
+                    <NavLink className='p-3' to='/' hidden={props.user ? true : false} onClick={logout} >Logout</NavLink>
+                </div>
           </div>
-     </nav>
+      </nav>
   );
 }
 
