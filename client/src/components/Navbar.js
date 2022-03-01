@@ -15,6 +15,7 @@ function Navbar(props) {
           <div className='container-fluid'>
               <NavLink className='p-3' to='/' >Bloggy</NavLink>
                 <div className='nav justify-content-end'>
+                    <NavLink className='p-3' to='/signup' >Sign Up</NavLink>
                     <NavLink className='p-3' to='/login' hidden={props.user ? true : false} >Login</NavLink>
                     <NavLink className='p-3' to='/create' >Create Blog</NavLink>
                     <NavLink className='p-3' to='/' hidden={props.user ? true : false} onClick={logout} >Logout</NavLink>

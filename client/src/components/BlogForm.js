@@ -42,20 +42,19 @@ function BlogForm(props) {
     return (
       <div>
         <h1 className="text-light mb-3">Create a new Blog!</h1>
-        <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label for="title" className="form-label text-light">Title</label>
-          <input type="text" className="form-control" id="blogTitle" placeholder="" onChange={handleChange} />
-        </div>
-        <div class="mb-3">
-          <label for="text" className="form-label text-light">Blog It!</label>
-          <textarea name='content' className="form-control" id="blogText" rows="3" onChange={handleChange}></textarea>
-        </div>
-        <div>
-            <button type="button" className="btn btn-primary" onClick={handleSubmit} >Submit</button>
-        </div>
-        </form>
-        
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label for="title" className="form-label text-light">Title</label>
+              <input type="text" className="form-control" id="blogTitle" placeholder="" onChange={handleChange} />
+            </div>
+            <div className="mb-3">
+              <label for="text" className="form-label text-light">Blog It!</label>
+              <textarea name='content' className="form-control" id="blogText" rows="3" onChange={handleChange}></textarea>
+            </div>
+            <div>
+                <button type="button" className="btn btn-primary" onClick={handleSubmit} >Submit</button>
+            </div>
+          </form>
       </div>
    
   );

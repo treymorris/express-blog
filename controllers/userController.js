@@ -44,8 +44,22 @@ exports.login = function (req, res) {
 // Handle User sign-up form on POST
 exports.signup = [
     //Validate and sanitize fields
-    body('username', 'Please enter a username!').trim().isLength({ min: 3 }).escape(),
-    body('password', 'Password must be at least 5 characters.').trim().isLength({ min: 5 }).escape(),
+  body('username', 'Please enter a username!')
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+  body('password', 'Password must be Admin Code!')
+    .trim()
+    .isLength({ min: 5 })
+    .custom((value) => {
+      if (value === process.env.ADMIN_CODE) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .escape(),
+  
     //Process request after val & san
     (req, res, next) => {
         //Extract errors from request
