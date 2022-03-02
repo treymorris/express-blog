@@ -4,7 +4,7 @@ import '../App.css';
 function Footer() {
     return (
       <div>
-            <h1 className='text-light text-center'>Footer</h1>
+            <h5 className='text-light text-center'>Footer</h5>
       </div>
     
   );

@@ -6,10 +6,33 @@ import Login from './components/Login';
 import BlogForm from './components/BlogForm';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { useEffect, useState } from 'react';
 
 
 function App() {
+  const [user, setUser] = useState({
+    username: '',
+    password: ''
+  }, []);
+
+  const [blogs, setBlogs] = useState({
+    title: '',
+    blog: '',
+    date: Date,
+    comments: '',
+    published: true,
+  });
+  
+  useEffect(() => {
+    fetch('/api/blogs')
+      .then(response => response.json())
+      .then(data => setBlogs(data))
+      
+    
+  }, []);
+  
+  
+  
   return (
     <div>
       <Router>
@@ -17,14 +40,14 @@ function App() {
               <Navbar />
         </header>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<SignupForm />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/create' element={<BlogForm />} />
+          <Route path='/' element={<Home blogs={blogs} user={user}/>} />
+          <Route path='/signup' element={<SignupForm setUser={setUser}/>} />
+          <Route path='/login' element={<Login setUser={setUser}/>} />
+          <Route path='/create' element={<BlogForm user={user} blogs={blogs} setBlogs={setBlogs}/>} />
         </Routes>
       </Router>
       <footer className='fixed-bottom'>
-      <Footer />
+        <Footer />
       </footer>
       
     </div>
