@@ -23,7 +23,7 @@ function Login() {
             .then(response => response.json())//catch token here and save to local storage
             .then(data => {
                 console.log(data)
-                // localStorage.setItem('user', data.token)
+                localStorage.setItem('token', data.token)
             })
             .catch(error => {
                 console.log(error)

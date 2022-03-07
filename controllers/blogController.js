@@ -18,9 +18,14 @@ exports.get_all_blogs = function (req, res) {
 exports.create_blog = [
     (req, res, next) => {
         jwt.verify(req.token, process.env.SECRET, (err, authData) => {
-            if (err) return res.status(400).json(err);
-            req.authData = authData;
+          if (err) {
+            res.sendStatus(403);
+          } else {
+            res.json({
+              authData
+            })
             next();
+          }
         });
     },
     // validate and sanitize
@@ -44,8 +49,8 @@ exports.create_blog = [
             },
             (err, newBlog) => {
                 if (err) return res.json(err);
-
-                return res.json(newBlog);
+                console.log(newBlog)
+              return res.json(newBlog);
             }
         );
     },

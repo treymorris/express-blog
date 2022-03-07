@@ -27,14 +27,12 @@ exports.login = function (req, res) {
       }
   
       jwt.sign(
-        { _id: user._id, username: user.username },
+        { user },
         process.env.SECRET,
         { expiresIn: "10m" },
         (err, token) => {
-          if (err) return res.status(400).json(err);
           res.json({
-            token: token,
-            user: { _id: user._id, username: user.username },
+            token
           });
         }
       );
@@ -79,18 +77,12 @@ exports.signup = [
                 .save((err, user) => {
                     if (err) { return next(err) };
                     jwt.sign(
-                        { _id: user._id, username: user.username },
+                        { user },
                         process.env.SECRET,
                         { expiresIn: "5m" },
                         (err, token) => {
-                          if (err) return next(err);
-            
-                          return res.status(200).json({
+                         res.status(200).json({
                             token,
-                            user: {
-                              _id: user._id,
-                              username: user.username,
-                            },
                             message: "Signup successful",
                         });
                     }
