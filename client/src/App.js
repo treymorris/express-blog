@@ -6,7 +6,7 @@ import Login from './components/Login';
 import BlogForm from './components/BlogForm';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 
 function App() {
@@ -23,13 +23,13 @@ function App() {
     published: true,
   });
   
-  useEffect(() => {
-    fetch('/api/blogs')
-      .then(response => response.json())
-      .then(data => setBlogs(data))
+  // useEffect(() => {
+  //   fetch('/api/blogs')
+  //     .then(response => response.json())
+  //     .then(data => setBlogs(data))
       
     
-  }, []);
+  // }, []);
   
   
   
@@ -41,7 +41,7 @@ function App() {
         </header>
         <Routes>
           <Route path='/' element={<Home blogs={blogs} user={user}/>} />
-          <Route path='/signup' element={<SignupForm setUser={setUser}/>} />
+          <Route path='/signup' element={<SignupForm user={user} setUser={setUser}/>} />
           <Route path='/login' element={<Login setUser={setUser}/>} />
           <Route path='/create' element={<BlogForm user={user} blogs={blogs} setBlogs={setBlogs}/>} />
         </Routes>

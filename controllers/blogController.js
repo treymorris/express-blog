@@ -25,7 +25,7 @@ exports.create_blog = [
     },
     // validate and sanitize
     body("title", "Title cannot be empty").trim().isLength({ min: 1 }).escape(),
-    body("blog", "Title cannot be empty").trim().isLength({ min: 1 }),
+    body("blog", "Content cannot be empty").trim().isLength({ min: 1 }),
 
     // process request
     (req, res) => {

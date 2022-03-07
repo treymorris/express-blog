@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState } from 'react';
 
 
 
@@ -9,7 +9,7 @@ function BlogForm(props) {
     content: props.content || '',
     comments: props.commments || [],
     published: props.published || true,
-  })
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ function BlogForm(props) {
     fetch('/api/blogs/create', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data),
     })

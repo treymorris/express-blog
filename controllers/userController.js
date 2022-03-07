@@ -61,7 +61,8 @@ exports.signup = [
     .escape(),
   
     //Process request after val & san
-    (req, res, next) => {
+  (req, res, next) => {
+    console.log('validated user')
         //Extract errors from request
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.json({ errors: errors.array() });
@@ -75,7 +76,7 @@ exports.signup = [
                     username: req.body.username,
                     password: hashedPass
                 })
-                .save((err) => {
+                .save((err, user) => {
                     if (err) { return next(err) };
                     jwt.sign(
                         { _id: user._id, username: user.username },
