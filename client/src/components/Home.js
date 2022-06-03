@@ -1,24 +1,34 @@
-import  Blog  from './Blog'
+import Blog from "./Blog";
+import { useState, useEffect } from "react";
 
+function Home({ blogs, user }) {
 
+    const [published, setPublished] = useState([]);
 
-function Home() {
-
+     useEffect(() => {
+       setPublished(() => blogs.filter((blog) => blog.published));
+     }, [blogs]);
     
-    return (
-        <main>
-            <section>
-                <div className="container-fluid">
-                    <h1 className='text-light mb-5 text-center'>Bloggy!</h1>
-                    <p className='text-light mb-5 text-center'>Welcome to Bloggy! Where elite bloggers blog about all the things worth blogging about today.</p>
-                </div>
-            </section>
-                    <h4 className='text-light text-center'>Blogs</h4>
-            <section className="row p-3 pt-1 w-100">
-                    <Blog />
-            </section>
-        </main>
-    );
+  return (
+    <main>
+      <section>
+        <div className="container-fluid">
+          <p className="text-light mb-5 text-center">
+            Welcome to Bloggy! Where elite bloggers blog about all the things
+            worth blogging about today.
+          </p>
+        </div>
+      </section>
+      <h4 className="text-light text-center mb-3">Blogs!</h4>
+      <section className="row p-3 pt-1 w-75 mx-auto">
+        {published.map((blog) => (
+          <div key={blog._id}>
+            <Blog blog={blog} user={user} />
+          </div>
+        ))}
+      </section>
+    </main>
+  );
 }
 
 export default Home;
