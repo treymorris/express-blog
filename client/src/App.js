@@ -9,7 +9,10 @@ import BlogEdit from "./components/BlogEdit";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+
 function App() {
+
+  //let navigate = useNavigate();
   const [user, setUser] = useState(undefined);
 
   const [blogs, setBlogs] = useState([]);
@@ -24,18 +27,65 @@ function App() {
     setBlogs(blogs);
   };
 
+  const handleDelete = (id) => {
+    fetch(`/api/blogs/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        //add authorization header with 'bearer' + token here
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        fetchBlogs();
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
+  const [blog, setBlog] = useState({});
+
+  const handleSubmitEdit = ( id) => {
+    //e.preventDefault();
+
+    fetch(`/api/blogs/${id}/edit`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //add authorization header with 'bearer' + token here
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        title: blog.title,
+        blog: blog.blog,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        //navigate("/");
+        fetchBlogs();
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
   return (
     <div>
       <Router>
         <header className="sticky-top">
-          <Navbar user={user} />
+          <Navbar user={user} setUser={setUser} />
         </header>
         <Routes>
-          <Route path="/" element={<Home blogs={blogs} user={user} />} />
+          <Route path="/" element={<Home blogs={blogs} user={user} handleDelete={handleDelete} />} />
           <Route path="/signup" element={<SignupForm setUser={setUser} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/create" element={<BlogForm />} />
-          <Route path="/edit" element={<BlogEdit />} />
+          <Route path="/:id" element={<BlogEdit blog={blog} setBlog={setBlog} handleSubmitEdit={handleSubmitEdit} />} />
         </Routes>
       </Router>
       <footer className="sticky-bottom">

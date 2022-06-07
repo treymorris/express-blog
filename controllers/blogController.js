@@ -21,9 +21,9 @@ exports.create_blog = [
       if (err) {
         res.sendStatus(403);
       } else {
-        res.json({
-          authData,
-        });
+        // res.json({
+        //   authData,
+        // });
         next();
       }
     });
@@ -33,7 +33,7 @@ exports.create_blog = [
   body("blog", "Content cannot be empty").trim().isLength({ min: 1 }),
 
   // process request
-  (req, res) => {
+  (req, res, next) => {
     // extract errors
     const errors = validationResult(req.body);
 
@@ -48,7 +48,7 @@ exports.create_blog = [
       if (err) {
         return next(err);
       }
-      //res.json({ message: "Blog Created!" });
+      res.json({ message: "Blog Created!" });
     });
   },
 ];
@@ -118,7 +118,7 @@ exports.edit_blog = [
     // create new blog
     const blog = new Blog({
       title: req.body.title,
-      blog: req.body.content,
+      blog: req.body.blog,
       published: req.body.published,
       date: Date.now(),
       _id: req.params.id,
@@ -154,10 +154,15 @@ exports.delete_blog = function (req, res) {
 };
 
 // GET single blog.
-exports.get_one_blog = function (req, res) {
-  Blog.findById(req.params.id).exec((err, blog) => {
-    if (err) return res.json(err);
-
-    return res.json(blog);
+exports.get_one_blog = function (req, res, next) {
+  Blog.findById(req.params.id)
+    .populate('comments')
+    .exec(function (err, blog) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({
+       blog
+     });
   });
 };

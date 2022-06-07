@@ -15,28 +15,37 @@ exports.get_user = async function (req, res) {
 };
 
 // login
-exports.login = function (req, res) {
-  passport.authenticate("local", { session: false }, (err, user) => {
-    if (err || !user) {
-      return res.status(401).json({
-        message: "Incorrect Username or Password",
-        user,
-      });
-    }
+exports.login = [
 
-    jwt.sign(
-      { user },
-      process.env.SECRET,
-      { expiresIn: "10m" },
-      (err, token) => {
-        res.json({
-          token,
+  body("username", "Enter Username!").trim().isLength({ min: 1 }).escape(),
+  body("password", "Enter a password!").trim().isLength({ min: 5 }).escape(),
+
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res.status(400).json({ error: errors.array() });
+    passport.authenticate("local", { session: false }, (err, user) => {
+      if (err || !user) {
+        return res.status(401).json({
+          message: "Incorrect Username or Password",
           user,
         });
       }
-    );
-  })(req, res);
-};
+
+      jwt.sign(
+        { user },
+        process.env.SECRET,
+        { expiresIn: "10m" },
+        (err, token) => {
+          res.json({
+            token,
+            userid: user._id
+          });
+        }
+      );
+    })(req, res);
+  }
+];
 
 exports.logout = function (req, res) {
   req.logout();

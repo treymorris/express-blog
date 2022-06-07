@@ -1,13 +1,13 @@
 import Blog from "./Blog";
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 
-function Home({ blogs, user }) {
+function Home({ blogs, user, handleDelete }) {
 
-    const [published, setPublished] = useState([]);
+    //const [published, setPublished] = useState([]);
 
-     useEffect(() => {
-       setPublished(() => blogs.filter((blog) => blog.published));
-     }, [blogs]);
+    //  useEffect(() => {
+    //    setPublished(() => blogs.filter((blog) => blog.published));
+    //  }, [blogs]);
     
   return (
     <main>
@@ -21,9 +21,9 @@ function Home({ blogs, user }) {
       </section>
       <h4 className="text-light text-center mb-3">Blogs!</h4>
       <section className="row p-3 pt-1 w-75 mx-auto">
-        {published.map((blog) => (
+        {blogs.map((blog) => (
           <div key={blog._id}>
-            <Blog blog={blog} user={user} />
+            <Blog blog={blog} user={user} handleDelete={handleDelete} />
           </div>
         ))}
       </section>

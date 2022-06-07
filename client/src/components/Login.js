@@ -6,8 +6,8 @@ function Login({ setUser }) {
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    //e.preventDefault();
 
     fetch("/api/users/login", {
       method: "POST",
@@ -23,14 +23,18 @@ function Login({ setUser }) {
       .then((data) => {
         console.log(data);
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", data.user);
-          setUser(data.user)
+        localStorage.setItem("userid", data.userid);
+          setUser(data.userid)
           navigate("/");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+   const handleKeyboard = (e) => {
+     if (e.key === "Enter") handleSubmit();
+   };
 
   return (
     <div>
@@ -45,6 +49,7 @@ function Login({ setUser }) {
             className="form-control"
             id="username"
             onChange={(e) => setUsername(e.target.value)}
+            onKeyDown={handleKeyboard}
           />
         </div>
         <div className="mb-3 w-50 mx-auto">
@@ -56,16 +61,17 @@ function Login({ setUser }) {
             className="form-control"
             id="password"
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyboard}
           />
         </div>
-        <div className="mx-auto">
-            <button
-              type="button"
-              className="btn btn-primary mx-auto"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
+        <div className="d-flex mb-5">
+          <button
+            type="button"
+            className="btn btn-primary mx-auto"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
         </div>
       </form>
     </div>
