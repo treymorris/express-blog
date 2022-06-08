@@ -36,27 +36,27 @@ function Blog({ blog, user, handleDelete }) {
         <div className="card-body">
           <h5 className="card-title text-light">{blog.title}</h5>
           <p className="card-text">{blog.blog}</p>
-          <p className="text-light mb-0">{blog.author}</p>
+          <p className="text-light mb-0">{blog.author.username}</p>
           <p>
             {DateTime.fromISO(blog.date).toLocaleString(DateTime.DATETIME_MED)}
           </p>
           <button
             onClick={handleEdit}
-            className="btn btn-warning me-2"
+            className="btn btn-warning btn-sm me-2"
             hidden={user ? false : true}
           >
             Edit
           </button>
           <button
             onClick={handleEdit}
-            className="btn btn-warning"
+            className="btn btn-warning btn-sm"
             hidden={blog.published === true && user ? false : true}
           >
             Unpublish
           </button>
           <button
             onClick={handleEdit}
-            className="btn btn-success"
+            className="btn btn-success btn-sm"
             hidden={blog.published === false && user ? false : true}
           >
             Publish
@@ -64,7 +64,7 @@ function Blog({ blog, user, handleDelete }) {
 
           <button
             onClick={() => handleDelete(blog._id)}
-            className="btn btn-danger float-end"
+            className="btn btn-danger float-end btn-sm"
             hidden={user ? false : true}
           >
             Delete

@@ -21,7 +21,8 @@ function App() {
   const fetchBlogs = async () => {
     const data = await fetch(`api/blogs`);
     const blogs = await data.json();
-    setBlogs(blogs);
+    console.log('app js blogs', blogs)
+    setBlogs(blogs.blogs);
   };
 
   const handleDelete = (id) => {
@@ -82,6 +83,7 @@ function App() {
         title: blog.title,
         blog: blog.blog,
         published: false,
+        author: user,
       }),
     })
       .then((response) => response.json())
@@ -122,10 +124,10 @@ function App() {
             }
           />
         </Routes>
-      </Router>
-      <footer className="sticky-bottom">
+      <footer className="fixed-bottom mb-3 me-5">
         <Footer />
       </footer>
+      </Router>
     </div>
   );
 }

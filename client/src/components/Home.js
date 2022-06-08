@@ -1,4 +1,6 @@
 import Blog from "./Blog";
+import Comment from "./Comment"
+import CommentForm from "./CommentForm"
 //import { useState, useEffect } from "react";
 
 function Home({ blogs, user, handleDelete }) {
@@ -23,6 +25,16 @@ function Home({ blogs, user, handleDelete }) {
         {blogs.map((blog) => (
           <div key={blog._id}>
             <Blog blog={blog} user={user} handleDelete={handleDelete} />
+            <Comment
+              blogid={blog._id}
+              user={user}
+              //authorid={blog.author._id}
+            />
+            <CommentForm
+              blogid={blog._id}
+              user={user}
+              authorid={user}
+            />
           </div>
         ))}
       </section>

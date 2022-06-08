@@ -1,9 +1,11 @@
 
 
-function Comment() {
+function Comment({ user, blogid, authorid}) {
   return (
     <div>
-      <h1>Hello from Comment</h1>
+      <h6 className="text-light ms-3" hidden={user ? false : true}>
+        Comments
+      </h6>
     </div>
   );
 }

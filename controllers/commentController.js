@@ -19,31 +19,30 @@ exports.get_all_comments = function (req, res) {
 };
 
 exports.create_comment = [
-  body("username", "Username cannot be empty")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
-  body("content", "Comment cannot be empty")
+  body("comment", "Please enter a comment.")
     .trim()
     .isLength({ min: 1 })
     .escape(),
 
-  (req, res) => {
-    const errors = validationResult(req.body);
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.json({ errors: errors.array() });
 
-    if (!errors.isEmpty()) return res.json(err);
-
-    const { username, comment } = req.body;
-
-    // create comment
-    Comment.create(
-      { username, comment, postId: req.params.post_id, date: Date.now() },
-      (err, comment) => {
-        if (err) return res.json(err);
-
-        return res.json(comment);
+    const comment = new Comment({
+      //user: req.body.user,
+      author: req.body.author,
+      blog: req.body.blog,
+      comment: req.body.comment,
+    }).save(function (err, data) {
+      if (err) {
+        return next(err);
       }
-    );
+      Blog.findByIdAndUpdate(req.body.blog, { $push: { comments: data._id }}, {new: true}).exec()
+      res.json({
+        message: "Comment Created!",
+        data
+      });
+    });
   },
 ];
 

@@ -5,12 +5,16 @@ const jwt = require("jsonwebtoken");
 
 // GET all blogs.
 exports.get_all_blogs = function (req, res) {
-  Blog.find()
+  Blog.find({})
+    .populate({path: "author", model:"User", select:"username"})
     .sort([["date", "descending"]])
-    .exec((err, posts) => {
-      if (err) return res.json(err);
-
-      return res.json(posts);
+    .exec(function (err, blogs) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({
+        blogs,
+      });
     });
 };
 
@@ -43,6 +47,7 @@ exports.create_blog = [
       title: req.body.title,
       blog: req.body.blog,
       published: req.body.published,
+      author: req.body.author,
       date: Date.now(),
     }).save(function (err) {
       if (err) {
@@ -156,7 +161,7 @@ exports.delete_blog = function (req, res) {
 // GET single blog.
 exports.get_one_blog = function (req, res, next) {
   Blog.findById(req.params.id)
-    .populate("comments")
+    .populate("comments author")
     .exec(function (err, blog) {
       if (err) {
         return next(err);

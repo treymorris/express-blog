@@ -6,9 +6,9 @@ var BlogSchema = new Schema({
   title: { type: String, required: true },
   blog: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  comments: { type: Schema.Types.ObjectId, ref: "Comment" },
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   published: { type: Boolean, default: false },
-  author: { type: String, default: "Bob Smith" },
+  author: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 module.exports = mongoose.model("Blog", BlogSchema);

@@ -16,7 +16,7 @@ function Navbar({ user, setUser }) {
   };
 
   return (
-    <nav className="navbar justify-content-center border border-2 border-primary mb-5 bg-secondary">
+    <nav className="navbar justify-content-center border border-5 border-dark mb-5 bg-secondary">
       <div className="container-fluid">
         <NavLink
           className="p-3 nav-link text-dark display-6"
