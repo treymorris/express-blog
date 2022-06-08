@@ -156,13 +156,13 @@ exports.delete_blog = function (req, res) {
 // GET single blog.
 exports.get_one_blog = function (req, res, next) {
   Blog.findById(req.params.id)
-    .populate('comments')
+    .populate("comments")
     .exec(function (err, blog) {
       if (err) {
         return next(err);
       }
       res.status(200).json({
-       blog
-     });
-  });
+        blog,
+      });
+    });
 };

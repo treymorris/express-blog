@@ -7,8 +7,6 @@ function Login({ setUser }) {
   let navigate = useNavigate();
 
   const handleSubmit = () => {
-    //e.preventDefault();
-
     fetch("/api/users/login", {
       method: "POST",
       headers: {
@@ -24,17 +22,17 @@ function Login({ setUser }) {
         console.log(data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("userid", data.userid);
-          setUser(data.userid)
-          navigate("/");
+        setUser(data.userid);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-   const handleKeyboard = (e) => {
-     if (e.key === "Enter") handleSubmit();
-   };
+  const handleKeyboard = (e) => {
+    if (e.key === "Enter") handleSubmit();
+  };
 
   return (
     <div>

@@ -18,7 +18,7 @@ const fetchBlog = async () => {
   setBlog(blog.blog);
   console.log(blog.blog)
 };
-  console.log('blog info', blog)
+
   
 // const handleSubmitEdit = (e) => {
 //   e.preventDefault();
@@ -82,13 +82,6 @@ const handleChange = (e) => {
             rows="3"
             onChange={handleChange}
           ></textarea>
-          {/* <Editor
-            apiKey="b0mjjk7m4kelpn5ihyocsnucb1xiawd6ri14iudjok255h5e"
-            plugins="wordcount"
-            onChange={(e) => setBlog(e.target.value)}
-            id="blogText"
-            name="blog"
-          /> */}
         </div>
         <div className="d-flex justify-content-center mb-5">
           <button

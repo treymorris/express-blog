@@ -3,10 +3,10 @@ const { DateTime } = require("luxon");
 
 function Blog({ blog, user, handleDelete }) {
   let navigate = useNavigate();
-  
+
   const handleEdit = () => {
     navigate(`/${blog._id}`);
-  }
+  };
 
   // const handleDelete =  (id) => {
   //   fetch(`/api/blogs/${id}/delete`, {
@@ -26,7 +26,6 @@ function Blog({ blog, user, handleDelete }) {
   //     });
   // }
 
-
   return (
     <div>
       <div
@@ -43,11 +42,26 @@ function Blog({ blog, user, handleDelete }) {
           </p>
           <button
             onClick={handleEdit}
-            className="btn btn-warning"
+            className="btn btn-warning me-2"
             hidden={user ? false : true}
           >
             Edit
           </button>
+          <button
+            onClick={handleEdit}
+            className="btn btn-warning"
+            hidden={blog.published === true && user ? false : true}
+          >
+            Unpublish
+          </button>
+          <button
+            onClick={handleEdit}
+            className="btn btn-success"
+            hidden={blog.published === false && user ? false : true}
+          >
+            Publish
+          </button>
+
           <button
             onClick={() => handleDelete(blog._id)}
             className="btn btn-danger float-end"

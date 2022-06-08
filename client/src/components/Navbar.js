@@ -1,10 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-
 function Navbar({ user, setUser }) {
-
-  
-
   const logout = async () => {
     try {
       const response = await fetch("api/users/logout", {
@@ -13,7 +9,7 @@ function Navbar({ user, setUser }) {
       const data = await response.json();
       console.log(data);
       localStorage.removeItem("userid");
-      setUser('')
+      setUser("");
     } catch (error) {
       console.log(error);
     }

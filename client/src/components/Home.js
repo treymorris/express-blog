@@ -2,13 +2,12 @@ import Blog from "./Blog";
 //import { useState, useEffect } from "react";
 
 function Home({ blogs, user, handleDelete }) {
+  //const [published, setPublished] = useState([]);
 
-    //const [published, setPublished] = useState([]);
+  //  useEffect(() => {
+  //    setPublished(() => blogs.filter((blog) => blog.published));
+  //  }, [blogs]);
 
-    //  useEffect(() => {
-    //    setPublished(() => blogs.filter((blog) => blog.published));
-    //  }, [blogs]);
-    
   return (
     <main>
       <section>
