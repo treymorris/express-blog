@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-function CommentForm({ blogid, user, authorid }) {
-  console.log('comment form user', user)
-  console.log('comment form blogid', blogid)
+function CommentForm({ blogid, user, fetchBlogs }) {
+  
 
   const [text, setText] = useState("");
 
@@ -25,7 +24,7 @@ function CommentForm({ blogid, user, authorid }) {
         },
         body: JSON.stringify({
           comment: text,
-          //user: user,
+          
           author: user,
           blog: blogid,
         }),
@@ -33,40 +32,26 @@ function CommentForm({ blogid, user, authorid }) {
       const data = await response.json();
       console.log("Success on fetch:", data);
       handleFormReset();
+      fetchBlogs();
       
-      //fetchUser();
-      //fetchComments();
     } catch (error) {
       console.log("Error:", error);
     }
   };
 
-
-
   return (
     <div>
-      <div>
-        <div className="mb-3">
-          <textarea
-            name="comment"
-            className="form-control"
-            id="commentText"
-            placeholder="Add Comment Here..."
-            onChange={(e) => setText(e.target.value)}
-            onKeyDown={handleKeyboard}
-            value={text}
-            hidden={user ? false : true}
-          ></textarea>
-        </div>
-        {/* <div>
-          <button
-            type="button"
-            className="btn btn-primary position-relative top-0 start-50 translate-middle"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-        </div> */}
+      <div className="mb-5">
+        <textarea
+          name="comment"
+          className="form-control"
+          id="commentText"
+          placeholder="Add Comment Here..."
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyboard}
+          value={text}
+          hidden={user ? false : true}
+        ></textarea>
       </div>
     </div>
   );

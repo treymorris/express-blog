@@ -20,7 +20,7 @@ function SignupForm() {
       .then((response) => response.json()) //catch token here and save to local storage
       .then((data) => {
         console.log(data);
-        // localStorage.setItem('user', data.token)
+        localStorage.setItem("user", data.token);
       })
       .catch((error) => {
         console.log(error);
@@ -53,7 +53,7 @@ function SignupForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="d-flex justify-content-center mb-5" >
+        <div className="d-flex justify-content-center mb-5">
           <button
             type="button"
             className="btn btn-primary"

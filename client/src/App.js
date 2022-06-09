@@ -21,7 +21,7 @@ function App() {
   const fetchBlogs = async () => {
     const data = await fetch(`api/blogs`);
     const blogs = await data.json();
-    console.log('app js blogs', blogs)
+    //console.log('app js blogs', blogs)
     setBlogs(blogs.blogs);
   };
 
@@ -107,12 +107,26 @@ function App() {
           <Route
             path="/"
             element={
-              <Home blogs={blogs} user={user} handleDelete={handleDelete} />
+              <Home
+                blogs={blogs}
+                user={user}
+                handleDelete={handleDelete}
+                fetchBlogs={fetchBlogs}
+              />
             }
           />
           <Route path="/signup" element={<SignupForm setUser={setUser} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/create" element={<BlogForm blog={blog} setBlog={setBlog} handleSubmitCreate={handleSubmitCreate} />} />
+          <Route
+            path="/create"
+            element={
+              <BlogForm
+                blog={blog}
+                setBlog={setBlog}
+                handleSubmitCreate={handleSubmitCreate}
+              />
+            }
+          />
           <Route
             path="/:id"
             element={
@@ -124,9 +138,9 @@ function App() {
             }
           />
         </Routes>
-      <footer className="fixed-bottom mb-3 me-5">
-        <Footer />
-      </footer>
+        <footer className="fixed-bottom mb-3 me-5">
+          <Footer />
+        </footer>
       </Router>
     </div>
   );

@@ -1,14 +1,52 @@
 import Blog from "./Blog";
-import Comment from "./Comment"
-import CommentForm from "./CommentForm"
-//import { useState, useEffect } from "react";
+import Comment from "./Comment";
+import CommentForm from "./CommentForm";
 
-function Home({ blogs, user, handleDelete }) {
+function Home({ blogs, user, handleDelete, fetchBlogs }) {
+  //This can be moved to Public Access Website
   //const [published, setPublished] = useState([]);
-
   //  useEffect(() => {
   //    setPublished(() => blogs.filter((blog) => blog.published));
   //  }, [blogs]);
+
+  const handlePublish = async (id) => {
+    try {
+      const response = await fetch(`/api/blogs/${id}/publish`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      });
+      const data = await response.json();
+      console.log("Published", data);
+      fetchBlogs();
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+  const handleUnpublish = async (id) => {
+    try {
+      const response = await fetch(`/api/blogs/${id}/unpublish`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      });
+      const data = await response.json();
+      console.log("Unpublished", data);
+      fetchBlogs();
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
   return (
     <main>
@@ -24,16 +62,28 @@ function Home({ blogs, user, handleDelete }) {
       <section className="row p-3 pt-1 w-75 mx-auto">
         {blogs.map((blog) => (
           <div key={blog._id}>
-            <Blog blog={blog} user={user} handleDelete={handleDelete} />
-            <Comment
-              blogid={blog._id}
+            <Blog
+              blog={blog}
               user={user}
-              //authorid={blog.author._id}
+              handleDelete={handleDelete}
+              handlePublish={handlePublish}
+              handleUnpublish={handleUnpublish}
             />
+            <h6 className="text-light ms-3">Comments</h6>
+            {blog.comments.map((comment) => (
+              <Comment
+                key={comment._id}
+                comment={comment.comment}
+                author={comment.author.username}
+                date={comment.date}
+                user={user}
+              />
+            ))}
             <CommentForm
               blogid={blog._id}
               user={user}
               authorid={user}
+              fetchBlogs={fetchBlogs}
             />
           </div>
         ))}

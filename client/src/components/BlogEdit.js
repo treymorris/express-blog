@@ -1,57 +1,28 @@
 import { useEffect } from "react";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function BlogEdit({ blog, setBlog, handleSubmitEdit }) {
-// const [blog, setBlog] = useState({});
-//const [title, setTitle] = useState("");
-let navigate = useNavigate();
-const { id } = useParams();
+  let navigate = useNavigate();
+  const { id } = useParams();
 
-useEffect(() => {
-  fetchBlog();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+  useEffect(() => {
+    fetchBlog();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-const fetchBlog = async () => {
-  const data = await fetch(`api/blogs/${id}`);
-  const blog = await data.json();
-  setBlog(blog.blog);
-  console.log(blog.blog)
-};
+  const fetchBlog = async () => {
+    const data = await fetch(`api/blogs/${id}`);
+    const blog = await data.json();
+    setBlog(blog.blog);
+    console.log(blog.blog);
+  };
 
-  
-// const handleSubmitEdit = (e) => {
-//   e.preventDefault();
-
-//   fetch(`/api/blogs/${id}/edit`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "application/json",
-//       //add authorization header with 'bearer' + token here
-//       Authorization: `Bearer ${localStorage.getItem("token")}`,
-//     },
-//     body: JSON.stringify({
-//       title: blog.title,
-//       blog: blog.blog,
-//     }),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log("Success:", data);
-//       navigate("/");
-//     })
-//     .catch((error) => {
-//       console.log("Error:", error);
-//     });
-// };
-
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setBlog((prevInfo) => {
-    return { ...prevInfo, [name]: value };
-  });
-};
-
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBlog((prevInfo) => {
+      return { ...prevInfo, [name]: value };
+    });
+  };
 
   return (
     <div>
@@ -87,7 +58,10 @@ const handleChange = (e) => {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => { handleSubmitEdit(id); navigate('/')}}
+            onClick={() => {
+              handleSubmitEdit(id);
+              navigate("/");
+            }}
           >
             Submit
           </button>

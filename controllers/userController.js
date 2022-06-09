@@ -16,7 +16,6 @@ exports.get_user = async function (req, res) {
 
 // login
 exports.login = [
-
   body("username", "Enter Username!").trim().isLength({ min: 1 }).escape(),
   body("password", "Enter a password!").trim().isLength({ min: 5 }).escape(),
 
@@ -39,12 +38,12 @@ exports.login = [
         (err, token) => {
           res.json({
             token,
-            userid: user._id
+            userid: user._id,
           });
         }
       );
     })(req, res);
-  }
+  },
 ];
 
 exports.logout = function (req, res) {

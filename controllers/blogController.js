@@ -6,7 +6,14 @@ const jwt = require("jsonwebtoken");
 // GET all blogs.
 exports.get_all_blogs = function (req, res) {
   Blog.find({})
-    .populate({path: "author", model:"User", select:"username"})
+    .populate({ path: "author", model: "User", select: "username" })
+    .populate({
+      path: "comments",
+      populate: {
+        path: "author",
+        model: "User",
+      },
+    })
     .sort([["date", "descending"]])
     .exec(function (err, blogs) {
       if (err) {

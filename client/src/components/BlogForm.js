@@ -1,42 +1,7 @@
-//import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-function BlogForm({ blog, setBlog, handleSubmitCreate }) {
-
-  // const [blog, setBlog] = useState({
-  //   title: "",
-  //   blog: "",
-  //   published: false
-  // });
-  
+function BlogForm({ setBlog, handleSubmitCreate }) {
   let navigate = useNavigate();
-  
-  // const handleSubmitCreate = (e) => {
-  //   e.preventDefault();
-
-  //   fetch("/api/blogs/create", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       //add authorization header with 'bearer' + token here
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     },
-  //     body: JSON.stringify({
-  //       title: blog.title,
-  //       blog: blog.blog,
-  //       published: false,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log("Success:", data);
-  //       navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error:", error);
-  //     });
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,8 +9,6 @@ function BlogForm({ blog, setBlog, handleSubmitCreate }) {
       return { ...prevInfo, [name]: value };
     });
   };
-  
-
 
   return (
     <div>
@@ -57,7 +20,6 @@ function BlogForm({ blog, setBlog, handleSubmitCreate }) {
           </label>
           <input
             name="title"
-            //value={blog.title || ""}
             type="text"
             className="form-control"
             id="blogTitle"
@@ -69,7 +31,6 @@ function BlogForm({ blog, setBlog, handleSubmitCreate }) {
             Blog It!
           </label>
           <textarea
-            //value={blog.blog || ""}
             name="blog"
             className="form-control"
             id="blogText"
@@ -81,7 +42,10 @@ function BlogForm({ blog, setBlog, handleSubmitCreate }) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={()=>{handleSubmitCreate(); navigate('/')}}
+            onClick={() => {
+              handleSubmitCreate();
+              navigate("/");
+            }}
           >
             Submit
           </button>

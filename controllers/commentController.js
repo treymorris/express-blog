@@ -37,10 +37,14 @@ exports.create_comment = [
       if (err) {
         return next(err);
       }
-      Blog.findByIdAndUpdate(req.body.blog, { $push: { comments: data._id }}, {new: true}).exec()
+      Blog.findByIdAndUpdate(
+        req.body.blog,
+        { $push: { comments: data._id } },
+        { new: true }
+      ).exec();
       res.json({
         message: "Comment Created!",
-        data
+        data,
       });
     });
   },
