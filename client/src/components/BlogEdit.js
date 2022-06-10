@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Editor } from "@tinymce/tinymce-react";
 
 function BlogEdit({ blog, setBlog, handleSubmitEdit }) {
   let navigate = useNavigate();
@@ -15,6 +16,18 @@ function BlogEdit({ blog, setBlog, handleSubmitEdit }) {
     const blog = await data.json();
     setBlog(blog.blog);
     console.log(blog.blog);
+  };
+
+  const parseEditorData = (blog, editor) => {
+    const { targetElm } = editor;
+    const { name } = targetElm;
+
+    return {
+      target: {
+        name,
+        value: blog,
+      },
+    };
   };
 
   const handleChange = (e) => {
@@ -45,14 +58,26 @@ function BlogEdit({ blog, setBlog, handleSubmitEdit }) {
           <label htmlFor="blog" className="form-label text-light">
             Blog It!
           </label>
-          <textarea
+          {/* <textarea
             value={blog.blog || ""}
             name="blog"
             className="form-control"
             id="blogText"
             rows="3"
             onChange={handleChange}
-          ></textarea>
+          ></textarea> */}
+          <Editor
+            apiKey={process.env.REACT_APP_TINY_API_KEY}
+            textareaName="blog"
+            value={blog.blog || ""}
+            init={{
+              height: 500,
+              menubar: false,
+            }}
+            onEditorChange={(blog, editor) => {
+              handleChange(parseEditorData(blog, editor));
+            }}
+          ></Editor>
         </div>
         <div className="d-flex justify-content-center mb-5">
           <button

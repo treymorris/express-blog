@@ -49,7 +49,7 @@ function CommentForm({ blogid, user, fetchBlogs }) {
           placeholder="Add Comment Here..."
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyboard}
-          //value={text}
+          value={text}
           hidden={user ? false : true}
         ></textarea>
       </div>

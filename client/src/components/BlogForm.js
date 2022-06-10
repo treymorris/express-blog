@@ -1,7 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { Editor } from "@tinymce/tinymce-react";
 
 function BlogForm({ setBlog, handleSubmitCreate }) {
   let navigate = useNavigate();
+
+  const parseEditorData = (blog, editor) => {
+    const { targetElm } = editor;
+    const { name } = targetElm;
+
+    return {
+      target: {
+        name,
+        value: blog,
+      },
+    };
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,13 +43,24 @@ function BlogForm({ setBlog, handleSubmitCreate }) {
           <label htmlFor="blog" className="form-label text-light">
             Blog It!
           </label>
-          <textarea
+          {/* <textarea
             name="blog"
             className="form-control"
             id="blogText"
             rows="3"
             onChange={handleChange}
-          ></textarea>
+          ></textarea> */}
+          <Editor
+            apiKey={process.env.REACT_APP_TINY_API_KEY}
+            textareaName="blog"
+            init={{
+              height: 500,
+              menubar: false,
+            }}
+            onEditorChange={(blog, editor) => {
+              handleChange(parseEditorData(blog, editor));
+            }}
+          ></Editor>
         </div>
         <div className="d-flex justify-content-center mb-5">
           <button

@@ -8,16 +8,18 @@ function Blog({ blog, user, handleDelete, handleUnpublish, handlePublish }) {
     navigate(`/${blog._id}`);
   };
 
+  function createMarkup() {
+    return { __html: blog.blog };
+  }
+
   return (
     <div>
       <h5 className="text-light ms-3">Blog</h5>
-      <div
-        className="card mb-3 mt-3 bg-secondary border border-primary"
-      >
+      <div className="card mb-3 mt-3 bg-secondary border border-primary">
         <img src="" className="card-img-top" alt="" />
         <div className="card-body">
           <h5 className="card-title text-dark">{blog.title}</h5>
-          <p className="card-text">{blog.blog}</p>
+          <p className="card-text" dangerouslySetInnerHTML={createMarkup()}></p>
           <p className="text-light mb-0">{blog.author.username}</p>
           <p>
             {DateTime.fromISO(blog.date).toLocaleString(DateTime.DATETIME_MED)}
