@@ -54,18 +54,15 @@ exports.create_comment = [
 exports.edit_comment = [
   (req, res, next) => {
     jwt.verify(req.token, process.env.SECRET, (err, authData) => {
-      console.log(req.token);
+      //console.log(req.token);
       if (err) return res.status(400).json(err);
       req.authData = authData;
       next();
     });
   },
 
-  body("username", "Username cannot be empty")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
-  body("content", "Comment cannot be empty")
+  
+  body("comment", "Comment cannot be empty")
     .trim()
     .isLength({ min: 1 })
     .escape(),
@@ -73,22 +70,22 @@ exports.edit_comment = [
   (req, res) => {
     const errors = validationResult(req.body);
 
-    if (!errors.isEmpty()) return res.json(errors.array());
+    if (!errors.isEmpty()) {
+      return res.json(errors.array());
+    }
 
-    const comment = {
-      username: req.body.username,
-      comment: req.body.content,
-      postId: req.params.post_id,
-    };
+    const comment = new Comment({
+      author: req.body.author,
+      comment: req.body.comment,
+      blog: req.body.blog,
+      _id: req.params.id
+    });
 
-    Comment.findByIdAndUpdate(
-      req.params.id,
-      comment,
-      { new: true },
-      function (err, thecomment) {
-        if (err) return res.json();
+    Comment.findByIdAndUpdate(req.params.id, comment, { new: true }).exec(
+      (err, newComment) => {
+        if (err) return res.json(err);
 
-        return res.json(thecomment);
+        return res.json(newComment);
       }
     );
   },
@@ -96,20 +93,32 @@ exports.edit_comment = [
 
 // DELETE comment.
 exports.delete_comment = function (req, res) {
-  Comment.findByIdAndRemove(req.params.id, (err) => {
-    if (err) return res.json(err);
-
-    return res.json({
-      message: "Comment deleted successfully",
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+      if (err) return res.status(400).json(err);
+      req.authData = authData;
+      next();
     });
-  });
+  },
+    Comment.findByIdAndRemove(req.params.id, function (err) {
+      if (err) return res.json(err);
+
+      res.json({
+        message: "Comment deleted successfully",
+      });
+    });
 };
 
 // GET single comment.
 exports.one_comment = function (req, res) {
-  Comment.findById(req.params.id, (err, comment) => {
-    if (err) return res.json(err);
-
-    return res.json(comment);
-  });
+  Comment.findById(req.params.id)
+    .populate("author")
+    .exec(function (err, comment) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({
+        comment,
+      });
+    });
 };

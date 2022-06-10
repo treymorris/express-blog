@@ -13,7 +13,6 @@ function Blog({ blog, user, handleDelete, handleUnpublish, handlePublish }) {
       <h5 className="text-light ms-3">Blog</h5>
       <div
         className="card mb-3 mt-3 bg-secondary border border-primary"
-        key={blog._id}
       >
         <img src="" className="card-img-top" alt="" />
         <div className="card-body">

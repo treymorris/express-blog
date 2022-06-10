@@ -6,6 +6,9 @@ const verifyToken = require("../config/verifyToken");
 // GET all comments.
 router.get("/", commentController.get_all_comments);
 
+// GET one comment.
+router.get("/:id", commentController.one_comment);
+
 // CREATE comment.
 router.post("/create", commentController.create_comment);
 
@@ -13,9 +16,7 @@ router.post("/create", commentController.create_comment);
 router.put("/:id/edit", verifyToken, commentController.edit_comment);
 
 // DELETE comment.
-router.delete(":id/delete", verifyToken, commentController.delete_comment);
+router.delete("/:id/delete", verifyToken, commentController.delete_comment);
 
-// GET one comment.
-router.get("/:id", commentController.one_comment);
 
 module.exports = router;

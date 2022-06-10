@@ -1,21 +1,23 @@
+import { useNavigate } from "react-router-dom";
 const { DateTime } = require("luxon");
 
-function Comment({
-  comment,
-  author,
-  date,
-  user,
-  handleEditComment,
-  handleDeleteComment,
-}) {
+function Comment({ comment, user, handleDeleteComment }) {
+
+  let navigate = useNavigate();
+  const handleEditComment = () => {
+    navigate("/commentEdit", {
+      state: { id: comment._id }
+    });
+  };
+
   return (
     <div className="card bg-secondary border border-primary mb-1">
       <div className="card-body">
-        <p className="text-dark mt-3">{comment}</p>
-        <p className="text-light mb-0">{author}</p>
-        <p>{DateTime.fromISO(date).toLocaleString(DateTime.DATETIME_MED)}</p>
+        <p className="text-dark mt-3">{comment.comment}</p>
+        <p className="text-light mb-0">{comment.author.username}</p>
+        <p>{DateTime.fromISO(comment.date).toLocaleString(DateTime.DATETIME_MED)}</p>
         <button
-          onClick={handleEditComment}
+          onClick={() => handleEditComment(comment._id)}
           className="btn btn-warning btn-sm me-2"
           hidden={user ? false : true}
         >

@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import BlogForm from "./components/BlogForm";
 import Footer from "./components/Footer";
 import BlogEdit from "./components/BlogEdit";
+import CommentEdit from "./components/CommentEdit";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -21,7 +22,6 @@ function App() {
   const fetchBlogs = async () => {
     const data = await fetch(`api/blogs`);
     const blogs = await data.json();
-    //console.log('app js blogs', blogs)
     setBlogs(blogs.blogs);
   };
 
@@ -70,7 +70,6 @@ function App() {
   };
 
   const handleSubmitCreate = () => {
-    //e.preventDefault();
 
     fetch("/api/blogs/create", {
       method: "POST",
@@ -89,7 +88,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        //navigate("/");
         fetchBlogs();
       })
       .catch((error) => {
@@ -136,6 +134,10 @@ function App() {
                 handleSubmitEdit={handleSubmitEdit}
               />
             }
+          />
+          <Route
+            path="/commentEdit"
+            element={<CommentEdit fetchBlogs={fetchBlogs} />}
           />
         </Routes>
         <footer className="fixed-bottom mb-3 me-5">

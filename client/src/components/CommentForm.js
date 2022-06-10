@@ -45,11 +45,11 @@ function CommentForm({ blogid, user, fetchBlogs }) {
         <textarea
           name="comment"
           className="form-control"
-          id="commentText"
+          //id="commentText"
           placeholder="Add Comment Here..."
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyboard}
-          value={text}
+          //value={text}
           hidden={user ? false : true}
         ></textarea>
       </div>

@@ -47,6 +47,27 @@ function Home({ blogs, user, handleDelete, fetchBlogs }) {
       console.log("Error", error);
     }
   };
+  
+  
+  const handleDeleteComment = (id) => {
+  fetch(`/api/comments/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        //add authorization header with 'bearer' + token here
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        fetchBlogs();
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
 
   return (
     <main>
@@ -71,18 +92,17 @@ function Home({ blogs, user, handleDelete, fetchBlogs }) {
             />
             <h6 className="text-light ms-3">Comments</h6>
             {blog.comments.map((comment) => (
-              <Comment
-                key={comment._id}
-                comment={comment.comment}
-                author={comment.author.username}
-                date={comment.date}
-                user={user}
-              />
+              <div key={comment._id}>
+                <Comment
+                  comment={comment}
+                  user={user}
+                  handleDeleteComment={handleDeleteComment}
+                />
+              </div>
             ))}
             <CommentForm
               blogid={blog._id}
               user={user}
-              authorid={user}
               fetchBlogs={fetchBlogs}
             />
           </div>

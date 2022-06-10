@@ -19,7 +19,7 @@ function Login({ setUser }) {
     })
       .then((response) => response.json()) //catch token here and save to local storage
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("userid", data.userid);
         setUser(data.userid);
